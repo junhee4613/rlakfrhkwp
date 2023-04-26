@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
+    public float addSpeed;
     public float jumpForce;
-    private int jumpCount;
+    public int jumpCount;
+    bool jumpBoll;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     // Start is called before the first frame update
@@ -19,21 +21,48 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //기본 이동기
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, rb.velocity.y);
         if(rb.velocity.x > 0)
         {
             sr.flipX = false;
+            //대쉬
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                rb.velocity += Vector2.right * addSpeed;
+            }
         }
         if (rb.velocity.x < 0)
         {
             sr.flipX = true;
+            //대쉬
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                rb.velocity -= Vector2.left * -addSpeed;
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2)
+        //2단 점프
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1)
         {
+
+            rb.velocity += Vector2.up * jumpForce;
             jumpCount++;
-            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-            
+            jumpBoll = false;
         }
+        
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            jumpBoll = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount == 1 && jumpBoll)
+        {
+            rb.velocity = Vector2.zero;
+            rb.velocity += Vector2.up * jumpForce;
+            jumpCount++;
+        }
+        
+
+
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -45,6 +74,6 @@ public class PlayerController : MonoBehaviour
     }
     public void Die()
     {
-        Destroy(gameObject);
+        rb.velocity = Vector2.zero;
     }
 }
