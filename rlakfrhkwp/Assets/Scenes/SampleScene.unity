@@ -242,7 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   addSpeed: 3
-  jumpForce: 5
+  jumpForce: 300
   jumpCount: 0
 --- !u!50 &691861393
 Rigidbody2D:
@@ -263,7 +263,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &691861394
 BoxCollider2D:
@@ -363,6 +363,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!224 &691861397
 RectTransform:
   m_ObjectHideFlags: 0
