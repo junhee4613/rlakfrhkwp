@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public int hp = 3;
     public float moveSpeed;
     public float addSpeed;
     public float jumpForce;
     public int jumpCount;
     bool jumpBoll = true;
     bool run = false;
+    bool jumpBoll2 = false;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator an;
@@ -70,7 +72,12 @@ public class PlayerController : MonoBehaviour
 
         an.SetBool("Ground", jumpBoll);
         an.SetBool("run", run);
+        an.SetBool("jump2", jumpBoll2);
         run = false;
+        if(jumpCount == 2)
+        {
+            jumpBoll2 = true;
+        }
     }
     
 
@@ -81,16 +88,23 @@ public class PlayerController : MonoBehaviour
             jumpCount = 0;
         }
         jumpBoll = true;
+        if(other.gameObject.tag == "Monster")
+        {
+            this.Die();
+        }
         
     }
     private void OnCollisionExit2D(Collision2D other)
     {
 
         jumpBoll = false;
+        jumpBoll2 = false;
         
     }
     public void Die()
     {
         rb.velocity = Vector2.zero;
+        an.SetTrigger("Die");
     }
+    
 }
