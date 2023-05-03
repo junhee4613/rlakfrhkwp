@@ -101,6 +101,14 @@ public class PlayerController : MonoBehaviour
         jumpBoll2 = false;
         
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        //점수 구현
+        if(other.gameObject.tag == "Score")
+        {
+
+        }
+    }
     public void Die()
     {
         rb.velocity = Vector2.zero;
