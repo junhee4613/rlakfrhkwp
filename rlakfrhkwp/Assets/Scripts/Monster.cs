@@ -15,24 +15,23 @@ public class Monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hp == 0)
+        if(hp == 0)
         {
-            an.SetTrigger("die");
-            Destroy(gameObject, 2f);
-            //StartCoroutine(move());
+            die();
+            Destroy(gameObject, 0.49f);
         }
+    }
+    private void die()
+    {
+        an.SetTrigger("die");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             hp -= 1;
         }
     }
-   // public IEnumerator move()
-    //{
-      // yield return new WaitForSeconds(0.6f);
-        //Destroy(this.gameObject);
-   // }
+
 }
