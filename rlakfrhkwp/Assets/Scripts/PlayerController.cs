@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator an;
+    public Vector2 velTest;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //인스펙터 창에 속도를 표시해줌
+        velTest = rb.velocity;
         //넉백 방향 조절
         if(sr.flipX != true)
         {
@@ -38,7 +41,11 @@ public class PlayerController : MonoBehaviour
 
         }
         //기본 이동기
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, rb.velocity.y);
+        if (Input.anyKey)
+        {
+            rb.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, rb.velocity.y);
+        }
+       
         if (rb.velocity.x > 0)
         {
             
@@ -65,8 +72,7 @@ public class PlayerController : MonoBehaviour
             if (rb.velocity.y == 0)
             {
                 run = true;
-            }
-            
+            } 
 
         }
         //2단 점프
@@ -99,7 +105,8 @@ public class PlayerController : MonoBehaviour
         
         if(other.gameObject.tag == "Monster")
         {
-            rb.AddForce(new Vector2(8, 8), ForceMode2D.Impulse);
+            rb.velocity = new Vector2(3, 3).normalized * vt * 5;
+//            
             if(hp > 0)
             {
                 an.SetTrigger("hurt");
@@ -114,8 +121,10 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "Ground")
         {
+            rb.velocity = Vector2.zero; //넉백 당하고 난 후 미끄럼 방지
             jumpCount = 0;
-
+            an.SetBool("Ground", jumpBoll);
+            
         }
         jumpBoll = true;
 
@@ -125,7 +134,10 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.tag == "Ground")
         {
-            an.SetBool("Ground", jumpBoll);
+            if (!Input.anyKey)
+            {
+                rb.velocity = Vector2.zero;
+            }
             jumpBoll2 = false;                      //2단 점프 가능하게 하는 걸 false로 바꿔서 애니메이션이 1단 점프 넘어가는 걸 방지
         }
     }
@@ -134,8 +146,10 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             an.SetBool("Ground", !jumpBoll);
+            rb.gravityScale = 1;
         }
     }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         //점수 구현
@@ -146,7 +160,6 @@ public class PlayerController : MonoBehaviour
     }
     public void Die()
     {
-        
         an.SetTrigger("Die");
     }
     

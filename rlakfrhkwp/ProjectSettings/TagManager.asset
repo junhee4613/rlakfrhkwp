@@ -43,3 +43,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: "\uC81C\uC77C \uB4A4"
+    uniqueID: 3323554027
+    locked: 0
+  - name: "player \uB4A4"
+    uniqueID: 3167546587
+    locked: 0
+  - name: player
+    uniqueID: 430915397
+    locked: 0
+  - name: "\uC81C\uC77C \uC55E"
+    uniqueID: 1863411531
+    locked: 0
