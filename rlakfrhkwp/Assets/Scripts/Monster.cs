@@ -18,7 +18,7 @@ public class Monster : MonoBehaviour
         if(hp == 0)
         {
             die();
-            Destroy(gameObject, 0.49f);
+            //Destroy(gameObject, 0.49f);
         }
     }
     private void die()
@@ -26,12 +26,12 @@ public class Monster : MonoBehaviour
         an.SetTrigger("die");
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            hp -= 1;
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.gameObject.tag == "Player")
+    //    {
+    //        hp -= 1;
+    //    }
+    //}
 
 }

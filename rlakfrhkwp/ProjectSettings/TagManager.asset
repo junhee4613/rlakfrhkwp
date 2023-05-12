@@ -46,6 +46,9 @@ TagManager:
   - name: "\uC81C\uC77C \uB4A4"
     uniqueID: 3323554027
     locked: 0
+  - name: "\uC81C\uC77C \uB4A4\uBCF4\uB2E4 \uC55E"
+    uniqueID: 1464084359
+    locked: 0
   - name: "player \uB4A4"
     uniqueID: 3167546587
     locked: 0
